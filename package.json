@@ -1,0 +1,24 @@
+{
+  "name": "knights-trevails",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/cwilliams0926/knights-trevails#readme",
+  "bugs": {
+    "url": "https://github.com/cwilliams0926/knights-trevails/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwilliams0926/knights-trevails.git"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
+    "prettier": "3.9.6"
+  }
+}
