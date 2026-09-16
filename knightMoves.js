@@ -1,7 +1,12 @@
+const isValid = (vertex) => {
+  return vertex[0] >= 0 && vertex[0] <= 7 && vertex[1] >= 0 && vertex[1] <= 7
+    ? true
+    : false;
+};
+
 const generateEdgeList = (vertex) => {
   // The chess board is a 8x8 grid, valid indices are [0-7, 0-7]
   // Given a vertex, find all valid moves a knight could do from it
-  //
   // Given vertex [i, j],
   // If [i - 1, j - 2] is valid, add to edge list
   // If [i - 2, j - 1] is valid, add to edge list
@@ -12,6 +17,25 @@ const generateEdgeList = (vertex) => {
   // If [i - 1, j + 2] is valid, add to edge list
   // If [i - 2, j + 1] is valid, add to edge list
   // Return the edge list
+
+  const edgeList = [];
+  if (isValid([vertex[0] - 1, vertex[1] - 2]))
+    edgeList.push([vertex[0] - 1, vertex[1] - 2]);
+  if (isValid([vertex[0] - 2, vertex[1] - 1]))
+    edgeList.push([vertex[0] - 2, vertex[1] - 1]);
+  if (isValid([vertex[0] + 1, vertex[1] - 2]))
+    edgeList.push([vertex[0] + 1, vertex[1] - 2]);
+  if (isValid([vertex[0] + 2, vertex[1] - 1]))
+    edgeList.push([vertex[0] + 2, vertex[1] - 1]);
+  if (isValid([vertex[0] + 1, vertex[1] + 2]))
+    edgeList.push([vertex[0] + 1, vertex[1] + 2]);
+  if (isValid([vertex[0] + 2, vertex[1] + 1]))
+    edgeList.push([vertex[0] + 2, vertex[1] + 1]);
+  if (isValid([vertex[0] - 1, vertex[1] + 2]))
+    edgeList.push([vertex[0] - 1, vertex[1] + 2]);
+  if (isValid([vertex[0] - 2, vertex[1] + 1]))
+    edgeList.push([vertex[0] - 2, vertex[1] + 1]);
+  return edgeList;
 };
 
 const knightMoves = (firstVertex, secondVertex) => {
@@ -28,7 +52,9 @@ const knightMoves = (firstVertex, secondVertex) => {
     !Number.isInteger(secondVertex[0]) ||
     !Number.isInteger(secondVertex[1])
   ) {
-    throw new Error('Vertices must be integers e.g. [0, 0] or [1, 2]');
+    throw new Error(
+      'Vertices must be integers between 0 and 7, e.g. [0, 0] or [1, 2]'
+    );
   }
 
   // Call generateEdgeList on firstVertex
