@@ -5,19 +5,6 @@ const isValid = (vertex) => {
 };
 
 const generateEdgeList = (vertex) => {
-  // The chess board is a 8x8 grid, valid indices are [0-7, 0-7]
-  // Given a vertex, find all valid moves a knight could do from it
-  // Given vertex [i, j],
-  // If [i - 1, j - 2] is valid, add to edge list
-  // If [i - 2, j - 1] is valid, add to edge list
-  // If [i + 1, j - 2] is valid, add to edge list
-  // If [i + 2, j - 1] is valid, add to edge list
-  // If [i + 1, j + 2] is valid, add to edge list
-  // If [i + 2, j + 1] is valid, add to edge list
-  // If [i - 1, j + 2] is valid, add to edge list
-  // If [i - 2, j + 1] is valid, add to edge list
-  // Return the edge list
-
   const edgeList = [];
   if (isValid([vertex[0] - 1, vertex[1] - 2]))
     edgeList.push([vertex[0] - 1, vertex[1] - 2]);
@@ -38,7 +25,7 @@ const generateEdgeList = (vertex) => {
   return edgeList;
 };
 
-const knightMoves = (firstVertex, secondVertex) => {
+export const knightMoves = (firstVertex, secondVertex) => {
   // Check both vertices are valid
   if (!Array.isArray(firstVertex) || !Array.isArray(secondVertex)) {
     throw new Error('Must pass in two vertices');
