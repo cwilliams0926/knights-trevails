@@ -1,3 +1,3 @@
 import { knightMoves } from './knightMoves.js';
 
-knightMoves([3, 4], [2, 1]);
+knightMoves([0, 1], [5, 5]);

@@ -1,8 +1,13 @@
+import Queue from './Queue.js';
+
 const isValid = (vertex) => {
   return vertex[0] >= 0 && vertex[0] <= 7 && vertex[1] >= 0 && vertex[1] <= 7
     ? true
     : false;
 };
+
+const arraysEqual = (a, b) =>
+  a.length === b.length && a.every((val, index) => val === b[index]);
 
 const generateEdgeList = (vertex) => {
   const edgeList = [];
@@ -43,12 +48,45 @@ export const knightMoves = (firstVertex, secondVertex) => {
       'Vertices must be integers between 0 and 7, e.g. [0, 0] or [1, 2]'
     );
   }
+  if (!isValid(firstVertex) || !isValid(secondVertex)) {
+    throw new Error(
+      'Vertices must be integers between 0 and 7, e.g. [0, 0] or [1, 2]'
+    );
+  }
 
-  // Call generateEdgeList on firstVertex
-  // Do BFS on the generated edge list to find secondVertex
-  // i.e., search firstVertex's edge list for secondVertex,
-  // then search all of the vertices in the edge list's own edge lists
-  // for secondVertex
-  //
-  // Need a way to store the path
+  const discoveredVertices = new Queue();
+  const visitedVertices = new Set([firstVertex.toString()]);
+  const pathMap = new Map();
+  pathMap.set(firstVertex.toString(), null);
+  discoveredVertices.enqueue(firstVertex);
+
+  while (!discoveredVertices.isEmpty()) {
+    const currentVertex = discoveredVertices.dequeue();
+    if (arraysEqual(currentVertex, secondVertex)) {
+      const path = [];
+      let current = currentVertex;
+      let predecessor = pathMap.get(current.toString());
+      while (predecessor !== null) {
+        path.push(current);
+        current = predecessor;
+        predecessor = pathMap.get(current.toString());
+        if (predecessor === null) path.push(current); // Handles first vertex case
+      }
+      const reversedPath = path.toReversed();
+      console.log(
+        `You made it in ${reversedPath.length - 1} moves! Here's your path:`
+      );
+      reversedPath.forEach((vertex) => console.log(vertex));
+      return;
+    }
+
+    const neighbors = generateEdgeList(currentVertex);
+    for (const neighbor of neighbors) {
+      if (!visitedVertices.has(neighbor.toString())) {
+        visitedVertices.add(neighbor.toString());
+        pathMap.set(neighbor.toString(), currentVertex);
+        discoveredVertices.enqueue(neighbor);
+      }
+    }
+  }
 };
